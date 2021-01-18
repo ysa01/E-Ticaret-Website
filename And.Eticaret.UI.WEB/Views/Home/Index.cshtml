@@ -1,0 +1,88 @@
+﻿@model List<And.Eticaret.Core.Model.Entity.Product>
+@{
+    ViewBag.Title = "Index";
+    ViewBag.IsLogin = (bool)ViewBag.IsLogin;
+}
+
+<h2>E- Ticaret Sayfama Hoş Geldiniz</h2>
+<br />
+<h3 style="font:bold;">Son 5 ürün</h3>
+@foreach (var item in Model)
+{
+
+    <div class="productBox">
+        <p class="text-center" style="color:#ff0000; font-family:Verdana, Geneva, Tahoma, sans-serif"><b>@item.Name</b></p>  <br />
+        <img src="@item.ImageUrl" alt="" style="width:220px; height:169px;" />
+        <p><i class="far fa-copyright"></i> @item.Brade</p>
+        <p><i class="far fa-money-bill-alt"></i> @item.Price ₺</p>
+        <p style="color:#ff6a00"><i class="fas fa-truck glyphicon-text-color"></i> @item.Description</p>
+        <hr />
+        <a href="/Urun/@item.Name/@item.ID" class="btn btn-success"><i class="fas fa-search"></i> İncele</a>@*//burdaki href önemli product controllerda yakalıyoruz title olarak urle ekliyoruz Urun/Apple/4 gibi bir url oluyo*@
+        @if (ViewBag.IsLogin)
+        {
+            <a href="" data-pID="@item.ID" class="btn btn-warning addBasket"><i class="fas fa-shopping-basket"></i> Sepete At</a>
+        }
+
+    </div>
+}
+<div title="Teşekkürler :))" id="andModal">
+    Ürününüz Sepete Atılmıştır.
+    <hr />
+    <a class="btn btn-warning" href="/MyBasket"><i class="fas fa-shopping-basket"></i> Sepete Git</a>
+</div>
+
+<style>
+    .container-fluid {
+        flex: auto;
+    }
+
+    .productBox {
+        font-size: large;
+        width: 300px;
+        height: 450px;
+        border: 2px solid #000000;
+        float: left;
+        margin: 5px 15px 5px 15px;
+        padding: 25px 25px 250px 25px;
+        box-shadow: -10px 5px 5px #808080;
+        border-top-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+        /* transform:rotate(2deg); döndürüyor kartları*/
+    }
+
+        .productBox img {
+            max-width: 100%;
+            min-width: 100%;
+            margin-bottom: 5px;
+        }
+</style>
+@section script
+{
+    <script type="text/javascript">
+
+        $(function () {
+            $("#andModal").dialog({
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                }
+            });
+
+            $(".addBasket").on("click", function () {
+                var pid = $(this).attr("data-pID");
+                $.post("/Basket/AddProduct?productID=" + pid + "&quantity=1", function (data)
+                {
+                    $("#andModal").dialog("open");
+                });
+               
+                return false;
+            });
+        });
+    </script>
+
+}

@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title -E-Ticaret</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("E-Ticaret Projem", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse" style="float:left;">
+                <ul class="nav navbar-nav">
+                    @Html.Action("GetMenu", "Home");
+
+                </ul>
+            </div>
+            <div style="float:right; color:white;">
+                @{
+                    if (Session["LoginUser"] == null)
+                    {
+                       <li class="list-group-item">
+                            <a  style="color:black; font-family:Calibri; font-size:18px; font-style:oblique" href="/Uye-Giris">Üye Giriş</a> <span style="color:black;">||</span>
+                            <a  style="color: black; font-family: Calibri; font-size: 18px; font-style: oblique" href="/Uye-Kayit">Üye Kayıt</a>
+                        </li>
+
+                    }
+                    else
+                    {
+                        var user = Session["LoginUser"] as And.Eticaret.Core.Model.Entity.User; //  sessionu eziyoruz
+                        <p>
+
+                            Merhaba @user.Name @user.SurName <br />
+                            <a href="#">Profilim</a> |
+                            <a href="/MyBasket">Sepetim</a> |
+                            <a href="/MyOrder">Siparişlerim</a>
+                        </p>
+
+
+
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+
+
+        <footer class="navbar-fixed-bottom">
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    @RenderSection("script", false)
+</body>
+</html>

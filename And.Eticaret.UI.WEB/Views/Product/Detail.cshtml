@@ -1,0 +1,37 @@
+﻿@model And.Eticaret.Core.Model.Entity.Product
+@{
+    ViewBag.Title = "Ürün Detayı";
+}
+<style>
+    .productBox {
+        font-size: large;
+        width: 250px;
+        height: 350px;
+        border: 2px solid #000000;
+        float: left;
+        margin: 10px;
+        padding: 10px;
+        box-shadow: -10px 5px 5px #808080;
+        border-top-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+        /* transform:rotate(2deg); döndürüyor kartları*/
+    }
+
+        .productBox img {
+            max-width: 100%;
+            min-width: 100%;
+            margin-bottom: 5px;
+        }
+</style>
+<h2>Ürün Detayı</h2>
+
+<div class="productBox">
+    <p class="text-center" style="color:#ff0000; font-family:Verdana, Geneva, Tahoma, sans-serif"><b>@Model.Name</b></p>  <br />
+    <img src="@Model.ImageUrl" alt="" style="width:220px; height:169px;" />
+    <p><i class="far fa-copyright"></i> @Model.Brade</p>
+    <p><i class="far fa-money-bill-alt"></i> @Model.Price ₺</p>
+    <p style="color:#00ff21"><i class="fas fa-truck glyphicon-text-color"></i> @Model.Description</p>
+    <hr />
+    
+    <a href="" class="btn btn-warning"><i class="fas fa-shopping-basket"></i> Sepete At</a>
+</div>

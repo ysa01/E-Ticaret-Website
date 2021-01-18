@@ -1,0 +1,54 @@
+﻿@model IEnumerable<And.Eticaret.Core.Model.Entity.UserAddress>
+
+@{
+    ViewBag.Title = "AddressList";
+}
+
+<h2>AddressList</h2>
+
+<p>
+    <a class="btn btn-success btn-sm" href="/Order/CreateUserAddress"><i class="fas fa-plus"></i>  Yeni Adres Ekle</a>
+    
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Text
+        </th>
+        <th>
+            Şehir
+        </th>
+        <th>
+           Adres
+        </th>
+        <th>
+            Kayıt Tarihi
+        </th>
+        <th>İşlemler</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Seç", "CreateOrder", new { id=item.ID }) 
+           
+        </td>
+    </tr>
+}
+
+</table>
